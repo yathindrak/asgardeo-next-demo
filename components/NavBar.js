@@ -1,7 +1,9 @@
+import { useSession, getSession, signIn, signOut } from 'next-auth/react'
 import Link from "next/link";
 import { useState } from "react";
 
 export const NavBar = () => {
+    const { data: session, status } = useSession()
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     return (
         <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -16,15 +18,31 @@ export const NavBar = () => {
 
                 <ul className="flex items-center hidden ml-auto space-x-8 lg:flex">
                     <li>
-                        <a
-                            href="#"
-                            className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                            aria-label="Sign up"
-                            title="Sign up"
-                            onClick={() => console.log('sign in called')}
-                        >
-                            Sign In
-                        </a>
+                        {
+                            session ? 
+                            (
+                                <a
+                                    href="#"
+                                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                    aria-label="Sign up"
+                                    title="Sign up"
+                                    onClick={() => signOut("asgardeo", { callbackUrl: "/" })}
+                                >
+                                    Sign Out
+                                </a>
+                            ) :
+                            (
+                                <a
+                                    href="#"
+                                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                    aria-label="Sign up"
+                                    title="Sign up"
+                                    onClick={() => signIn("asgardeo", { callbackUrl: "/" })}
+                                >
+                                    Sign In
+                                </a>
+                            )
+                        }
                     </li>
                 </ul>
                 <div className="ml-auto lg:hidden">
@@ -99,3 +117,12 @@ export const NavBar = () => {
         </div>
     );
 };
+
+// Export the `session` prop to use sessions with Server Side Rendering
+export async function getServerSideProps(context) {
+    return {
+        props: {
+        session: await getSession(context),
+        },
+    }
+}
