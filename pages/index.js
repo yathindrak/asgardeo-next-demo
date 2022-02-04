@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import jwt from "jwt-decode"
+import Link from 'next/link'
 
 export default function Home() {
   const { data: session, status } = useSession()
@@ -69,9 +70,11 @@ export default function Home() {
               <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                 <div className="max-w-xl sm:mx-auto lg:max-w-2xl">
                   <div className="flex flex-col mb-16 sm:text-center sm:mb-0">
-                    <a href="/" className="mb-6 sm:mx-auto">
-                      <Image src="/asgardeo-logo.svg" height={200} width={200} />
-                    </a>
+                    <div className='mb-6 sm:mx-auto cursor-pointer'>
+                      <Link href="https://wso2.com/asgardeo/" passHref={true}>
+                        <Image src="/asgardeo-logo.svg" height={200} width={200} />
+                      </Link>
+                    </div>
                     <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
                       <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
                         <span className="relative inline-block">
@@ -92,12 +95,13 @@ export default function Home() {
                       </p>
                     </div>
                     <div>
-                      <a
-                        href="/"
+                    <Link href="https://wso2.com/asgardeo/" passHref={true}>
+                      <button
                         className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                       >
                         Get started
-                      </a>
+                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
