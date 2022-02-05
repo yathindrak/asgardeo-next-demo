@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import jwt from "jwt-decode"
 import Link from 'next/link'
 
 export default function Home() {
@@ -33,22 +32,6 @@ export default function Home() {
         {
           session ? (
             <>
-              <p className={'my-8 text-5xl lg:text-3xl font-bold tracking-tight text-gray-900'}>
-                ID Token Inspection
-              </p>
-              {idToken ?
-                (
-                  <JsonRenderer
-                    src={jwt(idToken)}
-                    name={null}
-                    enableClipboard={false}
-                    displayObjectSize={false}
-                    displayDataTypes={false}
-                    iconStyle="square"
-                    theme="monokai"
-                  />
-                ) : null}
-
               <p className={'my-8 text-5xl lg:text-3xl font-bold tracking-tight text-gray-900'}>
                 User Information
               </p>
