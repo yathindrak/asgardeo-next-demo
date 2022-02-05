@@ -7,18 +7,9 @@ import Link from 'next/link'
 
 export default function Home() {
   const { data: session, status } = useSession()
-  const [idToken, setIdToken] = useState()
-  const loading = status === "loading"
   const JsonRenderer = dynamic(() => import('../components/JsonRenderer'), {
     ssr: false
   })
-
-  useEffect(() => {
-    if (session) {
-      const { accessToken, idToken } = session
-      setIdToken(idToken);
-    }
-  }, [])
 
   return (
     <>
