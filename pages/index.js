@@ -1,12 +1,11 @@
-import { useSession, getSession, signIn } from 'next-auth/react'
+import { useSession, getSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 export default function Home() {
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
   const JsonRenderer = dynamic(() => import('../components/JsonRenderer'), {
     ssr: false
   })
@@ -89,6 +88,7 @@ export default function Home() {
 
 // Export the `session` prop to use sessions with Server Side Rendering
 export async function getServerSideProps(context) {
+  console.log(await getSession(context))
   return {
     props: {
       session: await getSession(context),
